@@ -2,9 +2,22 @@
 Terraform code to create a VM in AWS running RHEL 7.4 (Free tier eligible), Security group to open port 80 and 22 to the world. (Keeping port 22 open to the world is not recommended, better to change it to allow traffic only from your own ip address)
 
 Clone the repo
-Update your credentials (access/secret key) in terraform.tfvars file. 
+Update your credentials (access/secret key) in ~/aws/credentials
+[default]
+aws_access_key_id=yyzxhfajhwui
+aws_secret_access_key=sueyfihsdhkj
+
+
+The above credentials are being specified in the terraform code via
+provider "aws" {
+  profile = "${var.profile}"
+}
+
+So if we place our credentials in the ~/aws/credentials file under the [default] block then the value of the profile variable should be default. If you're managing multiple aws accounts you can change the name from [default] to say [prod] and then update the value for profile variable to prod in the variables.tf file.
+
+
 Generating credentials for aws - https://console.aws.amazon.com/iam/home?#security_credential
-##If you simply leave out AWS credentials, Terraform will automatically search for saved API credentials (for example, in ~/.aws/credentials)
+
 
 In variables.tf
 
@@ -24,8 +37,7 @@ I've added 2 additional rule in the security group to allow all tcp and udp traf
 
 Terraform Backend and State Locking on AWS
 Create an S3 Bucket
-Create a dynamodb table - From your browser > AWS Service DyanamoDB > Create Table > 
+Create a dynamodb table - From your browser > AWS Service DyanamoDB > Create Table >
 Table Name = testtb
 Primary Key = LockID
 Use Default Settings > Create
-

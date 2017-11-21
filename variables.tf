@@ -1,5 +1,7 @@
-variable "access_key" {}
-variable "secret_key" {}
+variable "profile" {
+  default = "default"
+}
+
 variable "region" {
   default = "us-east-1"
 }
@@ -20,5 +22,5 @@ variable "key_name" {
 
 variable "key_path" {
   description = "Path to the private key specified by key_name"
-  default     = "~/.ssh/ramj.pem"
+  default     = "~/.ssh/id_rsa"
 }

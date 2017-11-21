@@ -1,7 +1,6 @@
 provider "aws" {
-  access_key = "${var.access_key}"
-  secret_key = "${var.secret_key}"
   region     = "${var.region}"
+  profile    = "${var.profile}"
 }
 
 resource "aws_instance" "example" {
@@ -15,6 +14,7 @@ resource "aws_instance" "example" {
     user = "${var.user}"
     private_key = "${var.key_path}"
 }
+
 }
 
 resource "aws_security_group" "example" {
